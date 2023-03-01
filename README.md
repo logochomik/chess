@@ -1,1 +1,1 @@
-# chess
+# LogoChomik's Chess
