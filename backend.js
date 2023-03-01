@@ -118,6 +118,20 @@ class Board {
 
 let selectedPiece = 0;
 let turn = 1;
+const piecedict = {
+    'black-pawn': 0,
+    'black-king': 0,
+    'black-queen': 0,
+    'black-knight': 0,
+    'black-bishop': 0,
+    'black-rook': 0,
+    'white-pawn': 1,
+    'white-king': 1,
+    'white-queen': 1,
+    'white-knight': 1,
+    'white-bishop': 1,
+    'white-rook': 1
+}
 
 const startPosition = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR';
 
@@ -131,8 +145,11 @@ for (let i = 1; i < 65; i++) {
 function movePiece(id) {
     let e = document.getElementById(`${id}`);
     if (selectedPiece == 0) {
-        selectedPiece = id;
-        document.getElementById('selected').innerHTML = `${e.classList[0]} at square ${id}`;
+        console.log(piecedict[e.classList[0]], turn)
+        if (piecedict[e.classList[0]] == turn) {
+            selectedPiece = id;
+            document.getElementById('selected').innerHTML = `${e.classList[0]} at square ${id}`;
+        }
     }
     else if (selectedPiece !== 0) {
         let p = document.getElementById(`${selectedPiece}`);
@@ -140,20 +157,6 @@ function movePiece(id) {
         let peicetypeUse = peicetype[0];
         let pasttype = e.classList;
         let pasttypeUse = pasttype[0];
-        let piecedict = {
-            'black-pawn': 0,
-            'black-king': 0,
-            'black-queen': 0,
-            'black-knight': 0,
-            'black-bishop': 0,
-            'black-rook': 0,
-            'white-pawn': 1,
-            'white-king': 1,
-            'white-queen': 1,
-            'white-knight': 1,
-            'white-bishop': 1,
-            'white-rook': 1
-        }
         if (piecedict[peicetypeUse] === piecedict[pasttypeUse]) {
             selectedPiece = 0;
             document.getElementById('selected').innerHTML = `none`;
