@@ -207,6 +207,7 @@ function posFen() {
 
 let selectedPiece = 0;
 let turn = 1;
+let switchTurn = true;
 let currentPosition = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR';
 let lastPosition = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR';
 const piecedict = {
@@ -239,8 +240,11 @@ function undo(e) {
         currentPosition = lastPosition;
         board.fenPos(currentPosition);
         document.getElementById('pos').innerHTML = currentPosition;
-        turn == 0 ? turn = 1 : turn = 0;
-        turn == 0 ? document.getElementById('turn').innerHTML = 'black' : document.getElementById('turn').innerHTML = 'white';
+        if (switchTurn == true) {
+            turn == 0 ? turn = 1 : turn = 0;
+            turn == 0 ? document.getElementById('turn').innerHTML = 'black' : document.getElementById('turn').innerHTML = 'white';
+        }
+        switchTurn = false;
     }
 }
 
@@ -277,6 +281,7 @@ function movePiece(id) {
             lastPosition = currentPosition;
             currentPosition = x;
             document.getElementById('pos').innerHTML = x;
+            switchTurn = true;
         }
     }
 }
