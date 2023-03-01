@@ -1,0 +1,59 @@
+#board {
+    font-size: 0;
+    border:4px solid #a01717;
+    display: inline-block;
+}
+#container {
+    text-align: center;
+}
+.black-pawn {
+    content:url(black-pawn.png);
+    object-fit: scale-down;
+}
+.white-pawn {
+    content:url(white-pawn.png);
+    object-fit: scale-down;
+}
+.black-king {
+    content:url(black-king.png);
+    object-fit: contain;
+}
+.white-king {
+    content:url(white-king.png);
+    object-fit: scale-down;
+}
+.black-queen {
+    content:url(black-queen.png);
+    object-fit: contain;
+}
+.white-queen {
+    content:url(white-queen.png);
+    object-fit: scale-down;
+}
+.black-rook {
+    content:url(black-rook.png);
+    object-fit: contain;
+}
+.white-rook {
+    content:url(white-rook.png);
+    object-fit: scale-down;
+}
+.black-knight {
+    content:url(black-knight.png);
+    object-fit: contain;
+}
+.white-knight {
+    content:url(white-knight.png);
+    object-fit: scale-down;
+}
+.black-bishop {
+    content:url(black-bishop.png);
+    object-fit: contain;
+}
+.white-bishop {
+    content:url(white-bishop.png);
+    object-fit: scale-down;
+}
+h1 {
+    text-align: center;
+}
