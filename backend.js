@@ -271,6 +271,64 @@ function movePiece(id) {
             document.getElementById('selected').innerHTML = `none`;
         }
         else {
+            let one = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+            let two = [56, 57, 58, 59, 60, 61, 62, 63, 64]
+            let inOne = false;
+            let inTwo = false;
+            for (let i in one) {if (id == one[i]) {inOne = true;}}
+            for (let i in two) {if (id == two[i]) {inTwo = true;}}
+            if (inOne == true && peicetypeUse == 'white-pawn') {
+                inOne = false;
+                let loop = true;
+                while (loop == true) {
+                    let x = prompt('What do you want to pronote this pawn to? [q] = queen, [k] = knight, [r] = rook, [b] = bishop');
+                    switch(x) {
+                        case 'q':
+                            peicetype = 'white-queen';
+                            loop = false;
+                            break;
+                        case 'k':
+                            peicetype = 'white-knight';
+                            loop = false;
+                            break;
+                        case 'r':
+                            peicetype = 'white-rook';
+                            loop = false;
+                            break;
+                        case 'b':
+                            peicetype = 'white-bishop';
+                            loop = false;
+                            break;
+                    }
+                }
+            }
+            if (inTwo == true && peicetypeUse == 'black-pawn') {
+                inTwo = false;
+                let loop = true;
+                while (loop == true) {
+                    let x = prompt('What do you want to pronote this pawn to? [q] = queen, [k] = knight, [r] = rook, [b] = bishop');
+                    switch(x) {
+                        case 'q':
+                            peicetype = 'black-queen';
+                            loop = false;
+                            break;
+                        case 'k':
+                            peicetype = 'black-knight';
+                            loop = false;
+                            break;
+                        case 'r':
+                            peicetype = 'black-rook';
+                            loop = false;
+                            break;
+                        case 'b':
+                            peicetype = 'black-bishop';
+                            loop = false;
+                            break;
+                    }
+                }
+            }
+            inOne = false;
+            inTwo = false;
             e.classList = peicetype;
             p.classList = '';
             selectedPiece = 0;
