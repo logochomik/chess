@@ -41,6 +41,14 @@ class Board {
         this.grid.render();
     }
     fenPos(str) {
+        for (let i = 1; i < 65; i++) {
+            let e = document.getElementById(`${i}`);
+            if (e.classList !== '') {
+                console.log(i, e.classList)
+                e.classList = '';
+                console.log(i, e.classList)
+            }
+        }
         str.split('');
         let row = 0;
         let column = 0;
@@ -199,7 +207,8 @@ function posFen() {
 
 let selectedPiece = 0;
 let turn = 1;
-let currentPosition = '';
+let currentPosition = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR';
+let lastPosition = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR';
 const piecedict = {
     'black-pawn': 0,
     'black-king': 0,
@@ -216,12 +225,23 @@ const piecedict = {
 }
 
 const startPosition = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR';
-
-const board = new Board().fenPos(startPosition);
+const board = new Board();
+board.fenPos(startPosition);
+document.addEventListener('keydown', (event) => undo(event))
 
 for (let i = 1; i < 65; i++) {
     let e = document.getElementById(`${i}`);
     e.addEventListener('click', (x) => movePiece(i));
+}
+
+function undo(e) {
+    if (e.key == 'r') {
+        currentPosition = lastPosition;
+        board.fenPos(currentPosition);
+        document.getElementById('pos').innerHTML = currentPosition;
+        turn == 0 ? turn = 1 : turn = 0;
+        turn == 0 ? document.getElementById('turn').innerHTML = 'black' : document.getElementById('turn').innerHTML = 'white';
+    }
 }
 
 function movePiece(id) {
@@ -254,6 +274,7 @@ function movePiece(id) {
             turn == 1 ? document.getElementById('turn').innerHTML = 'white' : document.getElementById('turn').innerHTML = 'black';
             document.getElementById('selected').innerHTML = `none`;
             let x = posFen();
+            lastPosition = currentPosition;
             currentPosition = x;
             document.getElementById('pos').innerHTML = x;
         }
