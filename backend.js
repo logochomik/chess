@@ -116,8 +116,90 @@ class Board {
     }
 }
 
+function posFen() {
+    let arr = [];
+    let num = 0;
+    for (let i = 1; i < 65; i++) {
+        let e = document.getElementById(`${i}`);
+        switch (e.classList[0]) {
+            case 'white-king':
+                if (num != 0) arr.push(`${num}`);
+                arr.push('K');
+                num = 0;
+                break;
+            case 'black-king':
+                if (num != 0) arr.push(`${num}`);
+                arr.push('k');
+                num = 0;
+                break;
+            case 'white-queen':
+                if (num != 0) arr.push(`${num}`);
+                arr.push('Q');
+                num = 0;
+                break;
+            case 'black-queen':
+                if (num != 0) arr.push(`${num}`);
+                arr.push('q');
+                num = 0;
+                break;
+            case 'white-rook':
+                if (num != 0) arr.push(`${num}`);
+                arr.push('R');
+                num = 0;
+                break;
+            case 'black-rook':
+                if (num != 0) arr.push(`${num}`);
+                arr.push('r');
+                num = 0;
+                break;
+            case 'white-knight':
+                if (num != 0) arr.push(`${num}`);
+                arr.push('N');
+                num = 0;
+                break;
+            case 'black-knight':
+                if (num != 0) arr.push(`${num}`);
+                arr.push('n');
+                num = 0;
+                break;
+            case 'white-bishop':
+                if (num != 0) arr.push(`${num}`);
+                arr.push('B');
+                num = 0;
+                break;
+            case 'black-bishop':
+                if (num != 0) arr.push(`${num}`);
+                arr.push('b');
+                num = 0;
+                break;
+            case 'white-pawn':
+                if (num != 0) arr.push(`${num}`);
+                arr.push('P');
+                num = 0;
+                break;
+            case 'black-pawn':
+                if (num != 0) arr.push(`${num}`);
+                arr.push('p');
+                num = 0;
+                break;
+            default:
+                num += 1;
+                break;
+        }
+        if (i % 8 == 0) {
+            if (i != 0 && i != 64) {
+                if (num != 0) arr.push(`${num}`);
+                arr.push('/');
+                num = 0;
+            }
+        }
+    }
+    return arr.join('');
+}
+
 let selectedPiece = 0;
 let turn = 1;
+let currentPosition = '';
 const piecedict = {
     'black-pawn': 0,
     'black-king': 0,
@@ -145,7 +227,6 @@ for (let i = 1; i < 65; i++) {
 function movePiece(id) {
     let e = document.getElementById(`${id}`);
     if (selectedPiece == 0) {
-        console.log(piecedict[e.classList[0]], turn)
         if (piecedict[e.classList[0]] == turn) {
             selectedPiece = id;
             document.getElementById('selected').innerHTML = `${e.classList[0]} at square ${id}`;
@@ -172,6 +253,9 @@ function movePiece(id) {
             turn == 1 ? turn = 0 : turn = 1;
             turn == 1 ? document.getElementById('turn').innerHTML = 'white' : document.getElementById('turn').innerHTML = 'black';
             document.getElementById('selected').innerHTML = `none`;
+            let x = posFen();
+            currentPosition = x;
+            document.getElementById('pos').innerHTML = x;
         }
     }
 }
