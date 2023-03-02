@@ -206,7 +206,9 @@ function posFen() {
 }
 
 let selectedPiece = 0;
+let turnAmt = 0;
 let turn = 1;
+let turnFromEnPassant = 0;
 let switchTurn = true;
 let currentPosition = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR';
 let lastPosition = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR';
@@ -295,6 +297,7 @@ function movePiece(id) {
                     if (document.getElementById(`${selectedPiece - 8}`).classList == '') {
                         legalMove = true;
                         document.getElementById(`${selectedPiece}`).classList.add('en-passantable');
+                        turnFromEnPassant = turnAmt + 1;
                     }
                     else {
                         console.log(document.getElementById(`${selectedPiece - 8}`).classList)
@@ -313,17 +316,19 @@ function movePiece(id) {
                     if (document.getElementById(`${id}`).classList == '') {
                         legalMove = false;
                     }
-                    let test1 = document.getElementById(`${selectedPiece + 1}`).classList[1];
-                    let test2 = document.getElementById(`${selectedPiece - 1}`).classList[1];
-                    if (test1 == 'en-passantable' || test2 == 'en-passantable') {
-                        console.log('en passant');
-                        if (test1 == 'en-passantable') {
-                            document.getElementById(`${id + 8}`).classList = '';
+                    if (turnFromEnPassant > 0) {
+                        let test1 = document.getElementById(`${selectedPiece + 1}`).classList[1];
+                        let test2 = document.getElementById(`${selectedPiece - 1}`).classList[1];
+                        if (test1 == 'en-passantable' || test2 == 'en-passantable') {
+                            console.log('en passant');
+                            if (test1 == 'en-passantable') {
+                                document.getElementById(`${id + 8}`).classList = '';
+                            }
+                            if (test2 == 'en-passantable') {
+                                document.getElementById(`${id + 8}`).classList = '';
+                            }
+                            legalMove = true;
                         }
-                        if (test2 == 'en-passantable') {
-                            document.getElementById(`${id + 8}`).classList = '';
-                        }
-                        legalMove = true;
                     }
                 }
             }
@@ -342,6 +347,7 @@ function movePiece(id) {
                     if (document.getElementById(`${selectedPiece + 8}`).classList == '') {
                         legalMove = true;
                         document.getElementById(`${selectedPiece}`).classList.add('en-passantable');
+                        turnFromEnPassant = turnAmt + 1;
                     }
                     else {
                         console.log(document.getElementById(`${selectedPiece + 8}`).classList)
@@ -361,14 +367,16 @@ function movePiece(id) {
                     let test2 = document.getElementById(`${selectedPiece - 1}`).classList[1];
                     console.log(document.getElementById(`${selectedPiece + 1}`).classList, document.getElementById(`${selectedPiece - 1}`).classList)
                     if (test1 == 'en-passantable' || test2 == 'en-passantable') {
-                        console.log('en passant');
-                        if (test1 == 'en-passantable') {
-                            document.getElementById(`${id - 8}`).classList = '';
+                        if (turnFromEnPassant > 0) {
+                            console.log('en passant');
+                            if (test1 == 'en-passantable') {
+                                document.getElementById(`${id - 8}`).classList = '';
+                            }
+                            if (test2 == 'en-passantable') {
+                                document.getElementById(`${id - 8}`).classList = '';
+                            }
+                            legalMove = true;
                         }
-                        if (test2 == 'en-passantable') {
-                            document.getElementById(`${id - 8}`).classList = '';
-                        }
-                        legalMove = true;
                     }
                     else {
                         if (document.getElementById(`${id}`).classList == '') {
@@ -428,6 +436,11 @@ function movePiece(id) {
                                 break;
                         }
                     }
+                }
+                turnAmt += 1;
+                document.getElementById('turnamt').innerHTML = turnAmt;
+                if (turnFromEnPassant < turnAmt) {
+                    turnFromEnPassant = 0;
                 }
                 inOne = false;
                 inTwo = false;
