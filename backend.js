@@ -224,6 +224,7 @@ const piecedict = {
     'white-bishop': 1,
     'white-rook': 1
 }
+const directionOffsets = [8, -8, -1, 1, 7, -7, 9, -9];
 
 const startPosition = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR';
 const board = new Board();
@@ -277,69 +278,116 @@ function movePiece(id) {
             let inTwo = false;
             for (let i in one) {if (id == one[i]) {inOne = true;}}
             for (let i in two) {if (id == two[i]) {inTwo = true;}}
-            if (inOne == true && peicetypeUse == 'white-pawn') {
+
+            let legalMove = true;
+            if (peicetypeUse == 'white-pawn') {
+                let test = selectedPiece - id;
+                console.log(test)
+                let isInInitialRow = false;
+                for (let i = 48; i < 57; i++) {
+                    if (selectedPiece == i) {
+                        isInInitialRow = true;
+                    }
+                }
+                if (test == 16 && isInInitialRow) {
+                    legalMove = true;
+                }
+                else if (test != 8 && test != 7 && test != 9) {
+                    legalMove = false;
+                }
+                else if (test == 7 || test == 9) {
+                    if (document.getElementById(`${id}`).classList == '') {
+                        legalMove = false;
+                    }
+                }
+            }
+            else if (peicetypeUse == 'black-pawn') {
+                let test = selectedPiece - id;
+                let isInInitialRow = false;
+                for (let i = 9; i < 17; i++) {
+                    if (selectedPiece == i) {
+                        isInInitialRow = true;
+                    }
+                }
+                if (test == -16 && isInInitialRow) {
+                    legalMove = true;
+                }
+                else if (test != -8 && test != -7 && test != -9) {
+                    legalMove = false;
+                }
+                else if (test == -7 || test == -9) {
+                    if (document.getElementById(`${id}`).classList == '') {
+                        legalMove = false;
+                    }
+                }
+            }
+
+            
+            if (legalMove == true) {
+                if (inOne == true && peicetypeUse == 'white-pawn') {
+                    inOne = false;
+                    let loop = true;
+                    while (loop == true) {
+                        let x = prompt('What do you want to pronote this pawn to? [q] = queen, [k] = knight, [r] = rook, [b] = bishop');
+                        switch(x) {
+                            case 'q':
+                                peicetype = 'white-queen';
+                                loop = false;
+                                break;
+                            case 'k':
+                                peicetype = 'white-knight';
+                                loop = false;
+                                break;
+                            case 'r':
+                                peicetype = 'white-rook';
+                                loop = false;
+                                break;
+                            case 'b':
+                                peicetype = 'white-bishop';
+                                loop = false;
+                                break;
+                        }
+                    }
+                }
+                if (inTwo == true && peicetypeUse == 'black-pawn') {
+                    inTwo = false;
+                    let loop = true;
+                    while (loop == true) {
+                        let x = prompt('What do you want to pronote this pawn to? [q] = queen, [k] = knight, [r] = rook, [b] = bishop');
+                        switch(x) {
+                            case 'q':
+                                peicetype = 'black-queen';
+                                loop = false;
+                                break;
+                            case 'k':
+                                peicetype = 'black-knight';
+                                loop = false;
+                                break;
+                            case 'r':
+                                peicetype = 'black-rook';
+                                loop = false;
+                                break;
+                            case 'b':
+                                peicetype = 'black-bishop';
+                                loop = false;
+                                break;
+                        }
+                    }
+                }
                 inOne = false;
-                let loop = true;
-                while (loop == true) {
-                    let x = prompt('What do you want to pronote this pawn to? [q] = queen, [k] = knight, [r] = rook, [b] = bishop');
-                    switch(x) {
-                        case 'q':
-                            peicetype = 'white-queen';
-                            loop = false;
-                            break;
-                        case 'k':
-                            peicetype = 'white-knight';
-                            loop = false;
-                            break;
-                        case 'r':
-                            peicetype = 'white-rook';
-                            loop = false;
-                            break;
-                        case 'b':
-                            peicetype = 'white-bishop';
-                            loop = false;
-                            break;
-                    }
-                }
-            }
-            if (inTwo == true && peicetypeUse == 'black-pawn') {
                 inTwo = false;
-                let loop = true;
-                while (loop == true) {
-                    let x = prompt('What do you want to pronote this pawn to? [q] = queen, [k] = knight, [r] = rook, [b] = bishop');
-                    switch(x) {
-                        case 'q':
-                            peicetype = 'black-queen';
-                            loop = false;
-                            break;
-                        case 'k':
-                            peicetype = 'black-knight';
-                            loop = false;
-                            break;
-                        case 'r':
-                            peicetype = 'black-rook';
-                            loop = false;
-                            break;
-                        case 'b':
-                            peicetype = 'black-bishop';
-                            loop = false;
-                            break;
-                    }
-                }
+                e.classList = peicetype;
+                p.classList = '';
+                selectedPiece = 0;
+                turn == 1 ? turn = 0 : turn = 1;
+                turn == 1 ? document.getElementById('turn').innerHTML = 'white' : document.getElementById('turn').innerHTML = 'black';
+                document.getElementById('selected').innerHTML = `none`;
+                let x = posFen();
+                lastPosition = currentPosition;
+                currentPosition = x;
+                document.getElementById('pos').innerHTML = x;
+                switchTurn = true;
             }
-            inOne = false;
-            inTwo = false;
-            e.classList = peicetype;
-            p.classList = '';
-            selectedPiece = 0;
-            turn == 1 ? turn = 0 : turn = 1;
-            turn == 1 ? document.getElementById('turn').innerHTML = 'white' : document.getElementById('turn').innerHTML = 'black';
-            document.getElementById('selected').innerHTML = `none`;
-            let x = posFen();
-            lastPosition = currentPosition;
-            currentPosition = x;
-            document.getElementById('pos').innerHTML = x;
-            switchTurn = true;
         }
     }
 }
