@@ -244,8 +244,12 @@ function undo(e) {
         board.fenPos(currentPosition);
         document.getElementById('pos').innerHTML = currentPosition;
         if (switchTurn == true) {
-            turn == 0 ? turn = 1 : turn = 0;
-            turn == 0 ? document.getElementById('turn').innerHTML = 'black' : document.getElementById('turn').innerHTML = 'white';
+            if (turnAmt > 0) {
+                turn == 0 ? turn = 1 : turn = 0;
+                turn == 0 ? document.getElementById('turn').innerHTML = 'black' : document.getElementById('turn').innerHTML = 'white';
+                turnAmt -= 1;
+                document.getElementById('turnamt').innerHTML = turnAmt;
+            }
         }
         switchTurn = false;
     }
@@ -409,7 +413,7 @@ function movePiece(id) {
                                 peicetype = 'white-bishop';
                                 loop = false;
                                 break;
-                        }
+                        };
                     }
                 }
                 if (inTwo == true && peicetypeUse == 'black-pawn') {
