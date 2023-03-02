@@ -281,8 +281,10 @@ function movePiece(id) {
 
             let legalMove = true;
             if (peicetypeUse == 'white-pawn') {
+                if (document.getElementById(`${selectedPiece}`).classList[1] == 'en-passantable') {
+                    document.getElementById(`${selectedPiece}`).classList.remove('en-passantable');
+                }
                 let test = selectedPiece - id;
-                console.log(test)
                 let isInInitialRow = false;
                 for (let i = 48; i < 57; i++) {
                     if (selectedPiece == i) {
@@ -290,7 +292,19 @@ function movePiece(id) {
                     }
                 }
                 if (test == 16 && isInInitialRow) {
-                    legalMove = true;
+                    if (document.getElementById(`${selectedPiece - 8}`).classList == '') {
+                        legalMove = true;
+                        document.getElementById(`${selectedPiece}`).classList.add('en-passantable');
+                    }
+                    else {
+                        console.log(document.getElementById(`${selectedPiece - 8}`).classList)
+                        legalMove = false;
+                    }
+                }
+                else if (test == 8) {
+                    if (document.getElementById(`${id}`).classList.value != '') {
+                        legalMove = false;
+                    }
                 }
                 else if (test != 8 && test != 7 && test != 9) {
                     legalMove = false;
@@ -299,9 +313,24 @@ function movePiece(id) {
                     if (document.getElementById(`${id}`).classList == '') {
                         legalMove = false;
                     }
+                    let test1 = document.getElementById(`${selectedPiece + 1}`).classList[1];
+                    let test2 = document.getElementById(`${selectedPiece - 1}`).classList[1];
+                    if (test1 == 'en-passantable' || test2 == 'en-passantable') {
+                        console.log('en passant');
+                        if (test1 == 'en-passantable') {
+                            document.getElementById(`${id + 8}`).classList = '';
+                        }
+                        if (test2 == 'en-passantable') {
+                            document.getElementById(`${id + 8}`).classList = '';
+                        }
+                        legalMove = true;
+                    }
                 }
             }
             else if (peicetypeUse == 'black-pawn') {
+                if (document.getElementById(`${selectedPiece}`).classList[1] == 'en-passantable') {
+                    document.getElementById(`${selectedPiece}`).classList.remove('en-passantable');
+                }
                 let test = selectedPiece - id;
                 let isInInitialRow = false;
                 for (let i = 9; i < 17; i++) {
@@ -310,19 +339,45 @@ function movePiece(id) {
                     }
                 }
                 if (test == -16 && isInInitialRow) {
-                    legalMove = true;
+                    if (document.getElementById(`${selectedPiece + 8}`).classList == '') {
+                        legalMove = true;
+                        document.getElementById(`${selectedPiece}`).classList.add('en-passantable');
+                    }
+                    else {
+                        console.log(document.getElementById(`${selectedPiece + 8}`).classList)
+                        legalMove = false;
+                    }
+                }
+                else if (test == -8) {
+                    if (document.getElementById(`${id}`).classList.value != '') {
+                        legalMove = false;
+                    }
                 }
                 else if (test != -8 && test != -7 && test != -9) {
                     legalMove = false;
                 }
                 else if (test == -7 || test == -9) {
-                    if (document.getElementById(`${id}`).classList == '') {
-                        legalMove = false;
+                    let test1 = document.getElementById(`${selectedPiece + 1}`).classList[1];
+                    let test2 = document.getElementById(`${selectedPiece - 1}`).classList[1];
+                    console.log(document.getElementById(`${selectedPiece + 1}`).classList, document.getElementById(`${selectedPiece - 1}`).classList)
+                    if (test1 == 'en-passantable' || test2 == 'en-passantable') {
+                        console.log('en passant');
+                        if (test1 == 'en-passantable') {
+                            document.getElementById(`${id - 8}`).classList = '';
+                        }
+                        if (test2 == 'en-passantable') {
+                            document.getElementById(`${id - 8}`).classList = '';
+                        }
+                        legalMove = true;
+                    }
+                    else {
+                        if (document.getElementById(`${id}`).classList == '') {
+                            legalMove = false;
+                        }
                     }
                 }
             }
 
-            
             if (legalMove == true) {
                 if (inOne == true && peicetypeUse == 'white-pawn') {
                     inOne = false;
