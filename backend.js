@@ -389,6 +389,18 @@ function movePiece(id) {
                     }
                 }
             }
+            else if (peicetypeUse == 'white-king') {
+                let test = selectedPiece - id;
+                if (test != -1 && test != 1 && test != -8 && test != 8 && test != -7 && test != 7 && test != -9 && test != 9) {
+                    legalMove = false;
+                }
+            }
+            else if (peicetypeUse == 'black-king') {
+                let test = selectedPiece - id;
+                if (test != -1 && test != 1 && test != -8 && test != 8 && test != -7 && test != 7 && test != -9 && test != 9) {
+                    legalMove = false;
+                }
+            }
 
             if (legalMove == true) {
                 if (inOne == true && peicetypeUse == 'white-pawn') {
