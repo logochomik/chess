@@ -546,6 +546,25 @@ function movePiece(id) {
                 currentPosition = x;
                 document.getElementById('pos').innerHTML = x;
                 switchTurn = true;
+                isWhiteKing = false;
+                isBlackKing = false;
+                for (let i = 1; i < 65; i++) {
+                    let e = document.getElementById(`${i}`).classList;
+                    if (e[0] == 'white-king') {
+                        isWhiteKing = true;
+                    }
+                    if (e[0] == 'black-king') {
+                        isBlackKing = true;
+                    }
+                }
+                if (isWhiteKing == false) {
+                    board.fenPos('');
+                    document.getElementById('winner').innerHTML = 'black'
+                }
+                if (isBlackKing == false) {
+                    board.fenPos('');
+                    document.getElementById('winner').innerHTML = 'white'
+                }
             }
         }
     }
