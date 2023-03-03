@@ -401,6 +401,66 @@ function movePiece(id) {
                     legalMove = false;
                 }
             }
+            else if (peicetypeUse == 'white-rook') {
+                let test = id - selectedPiece;
+                if (test > 0) {
+                    let isSomethingThere = false;
+                    for (let i = 8; i < test; i += 8) {
+                        if (document.getElementById(`${selectedPiece + i}`).classList != '') {
+                            isSomethingThere = true;
+                        }
+                        if (isSomethingThere == true) {
+                            legalMove = false;
+                            break;
+                        }
+                    }
+                }
+                else if (test < 0) {
+                    let isSomethingThere = false;
+                    for (let i = -8; i > test; i -= 8) {
+                        if (document.getElementById(`${selectedPiece + i}`).classList != '') {
+                            isSomethingThere = true;
+                        }
+                        if (isSomethingThere == true) {
+                            legalMove = false;
+                            break;
+                        }
+                    }
+                }
+                if (test != -8 && test != 8 && test != -16 && test != 16 && test != -24 && test != 24 && test != -32 && test != 32 && test != -40 && test != 40 && test != -48 && test != 48 && test != -56 && test != 56) {
+                    legalMove = false;
+                }
+            }
+            else if (peicetypeUse == 'black-rook') {
+                let test = id - selectedPiece;
+                if (test > 0) {
+                    let isSomethingThere = false;
+                    for (let i = 8; i < test; i += 8) {
+                        if (document.getElementById(`${selectedPiece + i}`).classList != '') {
+                            isSomethingThere = true;
+                        }
+                        if (isSomethingThere == true) {
+                            legalMove = false;
+                            break;
+                        }
+                    }
+                }
+                else if (test < 0) {
+                    let isSomethingThere = false;
+                    for (let i = -8; i > test; i -= 8) {
+                        if (document.getElementById(`${selectedPiece + i}`).classList != '') {
+                            isSomethingThere = true;
+                        }
+                        if (isSomethingThere == true) {
+                            legalMove = false;
+                            break;
+                        }
+                    }
+                }
+                if (test != -8 && test != 8 && test != -16 && test != 16 && test != -24 && test != 24 && test != -32 && test != 32 && test != -40 && test != 40 && test != -48 && test != 48 && test != -56 && test != 56) {
+                    legalMove = false;
+                }
+            }
 
             if (legalMove == true) {
                 if (inOne == true && peicetypeUse == 'white-pawn') {
