@@ -252,6 +252,7 @@ function undo(e) {
             }
         }
         switchTurn = false;
+        document.getElementById('winner').innerHTML = 'none';
     }
 }
 
