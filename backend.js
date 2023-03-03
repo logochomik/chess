@@ -395,6 +395,12 @@ function movePiece(id) {
                     legalMove = false;
                 }
             }
+            else if (peicetypeUse == 'white-knight' || peicetypeUse == 'black-knight') {
+                let test = selectedPiece - id;
+                if (test != 6 && test != -6 && test != 10 && test != -10 && test != 15 && test != -15 && test != 17 && test != -17) {
+                    legalMove = false;
+                }
+            }
             else if (peicetypeUse == 'white-rook' || peicetypeUse == 'black-rook') {
                 let test = id - selectedPiece;
                 if (test > 0) {
