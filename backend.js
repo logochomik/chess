@@ -389,75 +389,84 @@ function movePiece(id) {
                     }
                 }
             }
-            else if (peicetypeUse == 'white-king') {
+            else if (peicetypeUse == 'white-king' || peicetypeUse == 'black-king') {
                 let test = selectedPiece - id;
                 if (test != -1 && test != 1 && test != -8 && test != 8 && test != -7 && test != 7 && test != -9 && test != 9) {
                     legalMove = false;
                 }
             }
-            else if (peicetypeUse == 'black-king') {
-                let test = selectedPiece - id;
-                if (test != -1 && test != 1 && test != -8 && test != 8 && test != -7 && test != 7 && test != -9 && test != 9) {
-                    legalMove = false;
-                }
-            }
-            else if (peicetypeUse == 'white-rook') {
+            else if (peicetypeUse == 'white-rook' || peicetypeUse == 'black-rook') {
                 let test = id - selectedPiece;
                 if (test > 0) {
-                    let isSomethingThere = false;
-                    for (let i = 8; i < test; i += 8) {
-                        if (document.getElementById(`${selectedPiece + i}`).classList != '') {
-                            isSomethingThere = true;
+                    if (test % 8 == 0 || test % 8 == -0) {
+                        let isSomethingThere = false;
+                        for (let i = 8; i < test; i += 8) {
+                            if (document.getElementById(`${selectedPiece + i}`).classList != '') {
+                                isSomethingThere = true;
+                            }
+                            if (isSomethingThere == true) {
+                                legalMove = false;
+                                break;
+                            }
                         }
-                        if (isSomethingThere == true) {
+                    }
+                    else {
+                        let isSomethingThere = false;
+                        if (test == 1) {
+                            legalMove = true;
+                        }
+                        else {
+                            for (let i = 1; i < test; i += 1) {
+                                if (document.getElementById(`${selectedPiece + i}`).classList != '') {
+                                    isSomethingThere = true;
+                                }
+                                if (isSomethingThere == true) {
+                                    legalMove = false;
+                                    break;
+                                }
+                            }
+                        }
+                        if (test > id % 8) {
                             legalMove = false;
-                            break;
                         }
                     }
                 }
                 else if (test < 0) {
-                    let isSomethingThere = false;
-                    for (let i = -8; i > test; i -= 8) {
-                        if (document.getElementById(`${selectedPiece + i}`).classList != '') {
-                            isSomethingThere = true;
+                    if (test % 8 == 0 || test % 8 == -0) {
+                        let isSomethingThere = false;
+                        for (let i = -8; i > test; i -= 8) {
+                            if (document.getElementById(`${selectedPiece + i}`).classList != '') {
+                                isSomethingThere = true;
+                            }
+                            if (isSomethingThere == true) {
+                                legalMove = false;
+                                break;
+                            }
                         }
-                        if (isSomethingThere == true) {
+                    }
+                    else {
+                        let isSomethingThere = false;
+                        if (test == -1) {
+                            console.log(test % 8)
+                            legalMove = true;
+                        }
+                        else {
+                            for (let i = -1; i > test; i -= 1) {
+                                if (document.getElementById(`${selectedPiece + i}`).classList != '') {
+                                    isSomethingThere = true;
+                                }
+                                if (isSomethingThere == true) {
+                                    legalMove = false;
+                                    break;
+                                }
+                            }
+                        }
+                        if (test > id % 8) {
                             legalMove = false;
-                            break;
                         }
                     }
                 }
-                if (test != -8 && test != 8 && test != -16 && test != 16 && test != -24 && test != 24 && test != -32 && test != 32 && test != -40 && test != 40 && test != -48 && test != 48 && test != -56 && test != 56) {
-                    legalMove = false;
-                }
-            }
-            else if (peicetypeUse == 'black-rook') {
-                let test = id - selectedPiece;
-                if (test > 0) {
-                    let isSomethingThere = false;
-                    for (let i = 8; i < test; i += 8) {
-                        if (document.getElementById(`${selectedPiece + i}`).classList != '') {
-                            isSomethingThere = true;
-                        }
-                        if (isSomethingThere == true) {
-                            legalMove = false;
-                            break;
-                        }
-                    }
-                }
-                else if (test < 0) {
-                    let isSomethingThere = false;
-                    for (let i = -8; i > test; i -= 8) {
-                        if (document.getElementById(`${selectedPiece + i}`).classList != '') {
-                            isSomethingThere = true;
-                        }
-                        if (isSomethingThere == true) {
-                            legalMove = false;
-                            break;
-                        }
-                    }
-                }
-                if (test != -8 && test != 8 && test != -16 && test != 16 && test != -24 && test != 24 && test != -32 && test != 32 && test != -40 && test != 40 && test != -48 && test != 48 && test != -56 && test != 56) {
+                if (test != -8 && test != 8 && test != -16 && test != 16 && test != -24 && test != 24 && test != -32 && test != 32 && test != -40 && test != 40 && test != -48 && test != 48 && test != -56 && test != 56 && test != -1 && test != 1 && test != -2 && test != 2 && test != -3 && test != 3 && test != -4 && test != 4 && test != -5 && test != 5 && test != -6 && test != 6 && test != -7 && test != 7) {
                     legalMove = false;
                 }
             }
