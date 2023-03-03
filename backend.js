@@ -7,10 +7,10 @@ class Grid {
         let total = this.length * this.height;
         for (let i = 1; i <= total; i++) {
             const whiteSquare = document.createElement('div');
-            whiteSquare.style.cssText = 'height:50px;width:50px;background-color:#ff9c9c;display:inline-block;padding:10px;';
+            whiteSquare.style.cssText = 'height:50px;width:50px;background-color:#eeeed2;display:inline-block;padding:10px;';
             whiteSquare.id = `${i}`;
             const blackSquare = document.createElement('div');
-            blackSquare.style.cssText = 'height:50px;width:50px;background-color:#fa6666;display:inline-block;padding:10px;';
+            blackSquare.style.cssText = 'height:50px;width:50px;background-color:#769656;display:inline-block;padding:10px;';
             blackSquare.id = `${i}`;
             const br = document.createElement('br');
             document
