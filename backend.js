@@ -402,6 +402,72 @@ function movePiece(id) {
                     legalMove = false;
                 }
             }
+            else if (peicetypeUse == 'white-bishop' || peicetypeUse == 'black-bishop') {
+                let test = id - selectedPiece;
+                console.log(test)
+                if (test > 0) {
+                    if (test % 9 == 0 || test % 9 == -0) {
+                        let isSomethingThere = false;
+                        for (let i = 9; i < test; i+=9) {
+                            if (document.getElementById(`${selectedPiece + i}`).classList != '') {
+                                isSomethingThere = true;
+                            }
+                            if (isSomethingThere == true) {
+                                legalMove = false;
+                                break;
+                            }
+                        }
+                        if (test == 9) legalMove = true;
+                    }
+                    else {
+                        let isSomethingThere = false;
+                        for (let i = 7; i < test; i+=7) {
+                            if (document.getElementById(`${selectedPiece + i}`).classList != '') {
+                                isSomethingThere = true;
+                            }
+                            if (isSomethingThere == true) {
+                                legalMove = false;
+                                break;
+                            }
+                        }
+                        if (test == 7) legalMove = true;
+                    }
+                }
+                else if (test < 0) {
+                    if (test % 9 == 0 || test % 9 == -0) {
+                        let isSomethingThere = false;
+                        for (let i = -9; i > test; i-=9) {
+                            if (document.getElementById(`${selectedPiece + i}`).classList != '') {
+                                isSomethingThere = true;
+                            }
+                            if (isSomethingThere == true) {
+                                legalMove = false;
+                                break;
+                            }
+                        }
+                        if (test == -9) legalMove = true;
+                    }
+                    else {
+                        let isSomethingThere = false;
+                        for (let i = -7; i > test; i-=7) {
+                            if (document.getElementById(`${selectedPiece + i}`).classList != '') {
+                                isSomethingThere = true;
+                            }
+                            if (isSomethingThere == true) {
+                                legalMove = false;
+                                break;
+                            }
+                        }
+                        if (test == -7) legalMove = true;
+                    }
+                    if (test > id % 7 || test > id % 9) {
+                        legalMove = false;
+                    }
+                }
+                if (test != 7 && test != -7 && test != 9 && test != -9 && test != 14 && test != -14 && test != 18 && test != -18 && test != 21 && test != -21 && test != -27 && test != 27 && test != 28 && test != -28 && test != 36 && test != -36 && test != 35 && test != -35 && test != 45 && test != -45 && test != 42 && test != -42 && test != 54 && test != -54 && test != 49 && test != -49 && test != 63 && test != -63) {
+                    legalMove = false;
+                }
+            }
             else if (peicetypeUse == 'white-rook' || peicetypeUse == 'black-rook') {
                 let test = id - selectedPiece;
                 if (test > 0) {
